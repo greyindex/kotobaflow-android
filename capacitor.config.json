@@ -1,0 +1,14 @@
+{
+  "appId": "lol.kotobaflow.app",
+  "appName": "词基流动",
+  "webDir": "www",
+  "android": {
+    "loggingBehavior": "none"
+  },
+  "plugins": {
+    "SystemBars": {
+      "insetsHandling": "disable",
+      "style": "DEFAULT"
+    }
+  }
+}

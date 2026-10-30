@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">词基流动</string>
+    <string name="title_activity_main">词基流动</string>
+    <string name="package_name">lol.kotobaflow.app</string>
+    <string name="custom_url_scheme">lol.kotobaflow.app</string>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- DF-16: the launch picture: a 64 dp logo centred on the page colour, the
+     same on every screen (the old splash image was stretched to the window).
+     MainActivity keeps a copy over the page until the first screen is drawn,
+     and the page's launch cover (runtime/mobile-layout.css) repeats it. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <color android:color="#FF0F0F0F" />
+    </item>
+    <item
+        android:width="64dp"
+        android:height="64dp"
+        android:gravity="center"
+        android:drawable="@drawable/launch_logo" />
+</layer-list>

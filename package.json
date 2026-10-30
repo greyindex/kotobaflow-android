@@ -1,0 +1,41 @@
+{
+  "name": "kotobaflow-android",
+  "version": "0.4.2",
+  "private": true,
+  "description": "KotobaFlow Capacitor Android shell",
+  "scripts": {
+    "web:prepare": "node scripts/prepare-web.js",
+    "web:prepare:public": "node scripts/prepare-web.js --profile public",
+    "verify": "node scripts/verify-web.js",
+    "verify:apk": "python scripts/verify-apk.py",
+    "mobile:test": "node scripts/mobile-smoke.js",
+    "sync": "npm run web:prepare && npm run verify && cap sync android",
+    "sync:public": "npm run web:prepare:public && npm run verify && cap sync android",
+    "apk": "npm run sync && node scripts/build-android.js assembleDebug",
+    "apk:public": "npm run sync:public && node scripts/build-android.js assembleDebug && npm run verify:apk",
+    "apk:public:release": "npm run sync:public && node scripts/build-android.js assembleRelease && python scripts/verify-apk.py --release --report artifacts/apk-verification-release.json",
+    "open": "npm run sync && cap open android",
+    "android:lint": "node scripts/build-android.js lintDebug",
+    "android:unit-test": "node scripts/build-android.js testDebugUnitTest",
+    "android:smoke": "powershell -NoLogo -NoProfile -File scripts/android-smoke.ps1 -Serial emulator-5554",
+    "android:state-smoke": "powershell -NoLogo -NoProfile -File scripts/android-state-smoke.ps1 -Serial emulator-5554",
+    "android:device-check": "node scripts/android-device-check.js",
+    "check": "npm run test:progress && npm run test:assets && npm run test:offline && npm run sync && npm run mobile:test && npm run test:offline-integration && node scripts/build-android.js assembleDebug testDebugUnitTest lintDebug && npm run verify:apk",
+    "check:public": "npm run test:progress && npm run test:assets && npm run test:offline && npm run sync:public && npm run mobile:test && npm run test:offline-integration && node scripts/build-android.js assembleDebug testDebugUnitTest lintDebug && npm run verify:apk",
+    "format": "prettier --write \"*.{json,md}\" \"scripts/**/*.js\" \"runtime/**/*.{js,css}\" \"docs/**/*.md\"",
+    "format:check": "prettier --check \"*.{json,md}\" \"scripts/**/*.js\" \"runtime/**/*.{js,css}\" \"docs/**/*.md\"",
+    "test:progress": "node --test scripts/progress-contract-test.js",
+    "test:assets": "node --test scripts/web-assets-contract-test.js scripts/css-compat-test.js",
+    "test:offline": "node --test scripts/mobile-offline-contract-test.js",
+    "test:offline-integration": "node scripts/offline-integration-test.js"
+  },
+  "dependencies": {
+    "@capacitor/android": "8.5.1",
+    "@capacitor/app": "8.1.1",
+    "@capacitor/core": "8.5.1"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.5.1",
+    "prettier": "3.9.6"
+  }
+}
