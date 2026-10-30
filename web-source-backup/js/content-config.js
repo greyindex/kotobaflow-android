@@ -14,7 +14,7 @@
     'KotobaFlow3',
     'KotobaFlow4',
   ];
-  var offered = null; // null: every book
+  var offered = ['KotobaFlow1', 'KotobaFlow2', 'KotobaFlow3', 'KotobaFlow4']; // public source edition
   // Japanese classics reader (CLASSICS-01): data built by
   // tools/build_classics_library.cjs; the release package keeps it (DF-23).
   var classics = true;

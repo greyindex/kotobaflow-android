@@ -1,3 +1,3 @@
-# Android 发行版的网页源码
+# Android 0.4.2 的独立网页源码
 
-源码基线 `c704ecffb3eae5ce24c65704a331f972ab081bc6`，对应 Android 0.4.2 的独立网页分支。本站与网页公开站已独立发展。内容 JSON、音频、教材插图和旧历史不随源码分发；目录和加载契约保留。构建前提、网站与 APK 链接见[仓库 README](../README.md)，许可边界见 [PUBLICATION.md](../PUBLICATION.md)。
+程序源码基线为 `c704ecf`，对应外层 `5b39065`。资源安装到当前目录，详见 [KotobaFlow 资源仓库](https://github.com/greyindex/kotobaflow-resources) 的 `android-0.4.2` 版本；网站、APK 与构建步骤见[仓库 README](../README.md)。公开仓库默认只提供 KotobaFlow 四册，不包含新编资源或签名密钥。

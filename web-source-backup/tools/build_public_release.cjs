@@ -16,7 +16,7 @@ const { checkRelease, withheldPassages } = require('./check_public_release.cjs')
 const { buildManifest, source: manifestSource } = require('./generate_sw_manifest.cjs');
 
 const CONTENT_CONFIG = 'js/content-config.js';
-const OFFERED_LINE = /^(\s*)var offered = null;.*$/m;
+const OFFERED_LINE = /^(\s*)var offered = (?:null|\[[^\r\n;]*\]);.*$/m;
 const hash = (body) => crypto.createHash('sha256').update(body).digest('hex');
 
 // The public package offers only the original curriculum (PUB-05). The

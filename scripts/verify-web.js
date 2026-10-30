@@ -37,7 +37,7 @@ const EXPECTED = {
   },
   public: {
     curriculum: { books: 4, lessons: 77, courseWords: 6518 },
-    exampleSource: 41827,
+    exampleSource: 35491,
     exampleAudio: { clips: 35491, packs: 80 },
     classics: { works: 6, parts: 152, narrations: 2 },
   },

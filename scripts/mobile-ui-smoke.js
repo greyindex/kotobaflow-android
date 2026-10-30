@@ -1677,10 +1677,22 @@ async function runCurrentUiSmoke({
       select.dispatchEvent(new Event("change", { bubbles: true }));
     }, chart.sectionPage);
     await settle(roundPage);
+    await roundPage.waitForFunction(() => {
+      const frame = document.querySelector("#tbReader .book-frame");
+      return (
+        frame &&
+        frame
+          .getAnimations({ subtree: true })
+          .every((animation) => animation.playState !== "running")
+      );
+    });
     await roundPage
-      .locator("#tbReader .tb-section-kana .tb-kana-sound")
+      .locator("#tbReader .tb-section-kana .tb-kana-sound[data-kana-clip]")
       .nth(7)
       .click();
+    await roundPage.waitForSelector(
+      "#tbReader .tb-kana-detail[data-mobile-kana-open]",
+    );
     await settle(roundPage);
     const card = await roundPage.evaluate(() => {
       const detail = document.querySelector("#tbReader .tb-kana-detail");

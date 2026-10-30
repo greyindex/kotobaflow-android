@@ -20,28 +20,36 @@ SHA-256：`8d85707591da836322374984626307856c6aed47922d68890a337a885e6338e9`。
 
 ## 目录
 
-| 路径 | 职责 |
-| --- | --- |
-| `android/` | 原生文件桥、资源 Range 请求、导航与屏幕策略、Gradle 工程和单元测试 |
-| `runtime/` | 移动布局、本机进度适配、阅读控制和运行时注入 |
-| `scripts/` | 资源白名单、离线转换、完整性检查、构建与设备验收 |
-| `web-source-backup/` | 本发行版独立维护的网页程序源码 |
-| `mobile-assets/logo.svg` | 项目标识源文件 |
+| 路径                     | 职责                                                               |
+| ------------------------ | ------------------------------------------------------------------ |
+| `android/`               | 原生文件桥、资源 Range 请求、导航与屏幕策略、Gradle 工程和单元测试 |
+| `runtime/`               | 移动布局、本机进度适配、阅读控制和运行时注入                       |
+| `scripts/`               | 资源白名单、离线转换、完整性检查、构建与设备验收                   |
+| `web-source-backup/`     | 本发行版独立维护的网页程序源码                                     |
+| `mobile-assets/logo.svg` | 项目标识源文件                                                     |
 
 网页业务与移动差异在本仓库独立维护；不会自动同步 Web 仓库之后的改动。
 
 ## 构建前提
 
-Node.js 22+、Python 3.11+、Pillow、JDK 21、Android SDK 36。最低运行 Android API 24。
+Node.js 22+、Python 3.12+、Pillow、JDK 21、Android SDK 36。最低运行 Android API 24。
 
-本仓库按 [公开范围检查](PUBLICATION.md) 排除了课程 JSON、词库、全部音频、教材图片、古典资料、截图和私有 Git 历史。程序代码与 APK 对应，但资源不齐全，克隆后不能直接重建完整 APK；必须另行准备有权使用且符合原 manifest/hash 契约的资源。源码清单可单独验证：
+数据母版、处理后的课程／词库／语法、古典资料及全部公开音图依赖集中在 [KotobaFlow 资源仓库](https://github.com/greyindex/kotobaflow-resources)。使用 `android-0.4.2` 资源版本，安装到本仓库的独立网页源码目录：
 
 ```powershell
+git clone https://github.com/greyindex/kotobaflow-resources.git
+python kotobaflow-resources/install_resources.py --profile android-0.4.2 --target C:\path\to\kotobaflow-android\web-source-backup
+cd C:\path\to\kotobaflow-android
 npm ci
+npm --prefix web-source-backup ci
 python scripts/check-public-source.py
+npm run web:prepare:public
+npm run verify
 ```
 
-补齐资源后，公开版使用 `npm run apk:public` 或 `npm run apk:public:release`，验收使用 `npm run check:public`。默认 `npm run apk` 是本地八册配置，仍依赖未公开的新编资源。构建不会从网站自动下载缺失内容。
+资源仓库不含新编专用资料；项目自有资源采用 CC0，第三方资料保留原署名与许可，资源问题联系其 README 中的邮箱。媒体由资源仓库的 Release 提供，安装器逐文件校验，不需要把数据或私钥提交到本源码仓库。
+
+公开版构建使用 `npm run apk:public` 或 `npm run apk:public:release`，对应验收为 `npm run check:public`。公开版使用哈希指纹检查不可公开文本，无需取得新编正文。默认 `npm run apk` 仍是原本地八册配置，需要未公开的新编资源；两种版本不要混用。
 
 正式签名只读取本机未跟踪的 `android/keystore.properties`。自建包应使用自己的签名；换签名安装前先导出学习存档。
 
